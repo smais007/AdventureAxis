@@ -3,13 +3,14 @@ import Root from "../Layouts/Root";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import HomePage from "../pages/HomePage/HomePage";
 import LogInPage from "../pages/LogInPage/LogInPage";
-import SignUpPage from "../pages/SignInPage/SignInPage";
+import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import AddSpotsPage from "../pages/AddSpots/AddSpotsPage";
 import AllSpotsPage from "../pages/AllSpotsPage/AllSpotsPage";
 import MyList from "../pages/MyList/MyList";
 import UpdateSpots from "../pages/UpdateSpots/UpdateSpots";
 import Contact from "../pages/Contact/Contact";
-import Details from "../pages/Details/Details"
+import Details from "../pages/Details/Details";
+import PrivateRoutes from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -31,7 +32,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/add-tourists-spot",
-        element: <AddSpotsPage></AddSpotsPage>,
+        element: (
+          <PrivateRoutes>
+            <AddSpotsPage></AddSpotsPage>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/all-tourists-spot",
@@ -39,11 +44,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/update-tourists-spot",
-        element: <UpdateSpots></UpdateSpots>,
+        element: (
+          <PrivateRoutes>
+            <UpdateSpots></UpdateSpots>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/my-list",
-        element: <MyList></MyList>,
+        element: (
+          <PrivateRoutes>
+            <MyList></MyList>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/contact",
@@ -51,8 +64,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/details",
-        element: <Details></Details>
-      }
+        element: <Details></Details>,
+      },
     ],
   },
 ]);

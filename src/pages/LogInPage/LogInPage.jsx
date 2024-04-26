@@ -1,35 +1,46 @@
-/*
-  This example requires some changes to your config:
+import { useContext, useEffect } from "react";
+import { toast } from "sonner";
+import { useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
 
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 export default function LogInPage() {
+  const { signIn, googleLogin, githubLogin } = useContext(AuthContext);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = "Paradice Cave | Login";
+  }, []);
+
+  const handeLogin = (e) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const email = form.get("email");
+    const password = form.get("password");
+
+    signIn(email, password)
+      .then((result) => {
+        console.log(result);
+        navigate(location?.state ? location.state : "/");
+        toast.success("Login successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Email or password in incorrect");
+      });
+  };
+
   return (
     <>
-      {/*
-            This example requires updating your template:
-
-            ```
-            <html class="h-full bg-gray-50">
-            <body class="h-full">
-            ```
-          */}
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+            className="mx-auto h-10  w-auto"
+            src="https://i.ibb.co/6Rw3qLp/Discover-Your-Paradise.png"
             alt="Your Company"
           />
+
           <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>
@@ -37,7 +48,12 @@ export default function LogInPage() {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
           <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-            <form className="space-y-6" action="#" method="POST">
+            <form
+              onClick={handeLogin}
+              className="space-y-6"
+              action="#"
+              method="POST"
+            >
               <div>
                 <label
                   htmlFor="email"
@@ -128,8 +144,13 @@ export default function LogInPage() {
               </div>
 
               <div className="mt-6 grid grid-cols-2 gap-4">
-                <a
-                  href="#"
+                <button
+                  onClick={() => {
+                    googleLogin(
+                      navigate(location?.state ? location.state : "/")
+                    );
+                    toast.success("Login success");
+                  }}
                   className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
                 >
                   <svg
@@ -157,10 +178,15 @@ export default function LogInPage() {
                   <span className="text-sm font-semibold leading-6">
                     Google
                   </span>
-                </a>
+                </button>
 
                 <a
-                  href="#"
+                  onClick={() => {
+                    githubLogin(
+                      navigate(location?.state ? location.state : "/")
+                    );
+                    toast.success("Login success");
+                  }}
                   className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent"
                 >
                   <svg
@@ -189,7 +215,7 @@ export default function LogInPage() {
               href="/sign-up"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
-              SignUp
+              Register Here
             </a>
           </p>
         </div>

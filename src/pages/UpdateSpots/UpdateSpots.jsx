@@ -3,7 +3,16 @@ import HeaderTitle from "../../components/HeaderTitle/HeaderTitle";
 const UpdateSpots = () => {
   return (
     <>
-      <HeaderTitle></HeaderTitle>
+      <div className="bg-white px-6  py-10 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-base font-semibold leading-7 text-indigo-600">
+            Get the help you need
+          </p>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Update Tourist Spots
+          </h2>
+        </div>
+      </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
         <form>
           <div className="space-y-12">
@@ -28,13 +37,13 @@ const UpdateSpots = () => {
                   </label>
                   <div className="mt-2">
                     <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
+                      {/* <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
                         http://
-                      </span>
+                      </span> */}
                       <input
                         type="text"
-                        name="website"
-                        id="website"
+                        name="image"
+                        id="image"
                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="www.example.com"
                       />
@@ -51,10 +60,10 @@ const UpdateSpots = () => {
                   </label>
                   <div className="mt-2">
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
+                      id="tourists_spot_name"
+                      name="tourists_spot_name"
+                      type="text"
+                      autoComplete="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -90,10 +99,10 @@ const UpdateSpots = () => {
                   </label>
                   <div className="mt-2">
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
+                      id="location"
+                      name="location"
+                      type="text"
+                      autoComplete="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -108,8 +117,8 @@ const UpdateSpots = () => {
                   </label>
                   <div className="mt-2">
                     <textarea
-                      id="about"
-                      name="about"
+                      id="short_description"
+                      name="short_description"
                       rows={3}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       defaultValue={""}
@@ -129,10 +138,10 @@ const UpdateSpots = () => {
                   </label>
                   <div className="mt-2">
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
+                      id="seasonality"
+                      name="seasonality"
+                      type="text"
+                      autoComplete="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -147,9 +156,9 @@ const UpdateSpots = () => {
                   <div className="mt-2">
                     <input
                       type="text"
-                      name="city"
-                      id="city"
-                      autoComplete="address-level2"
+                      name="average_cost"
+                      id="average_cost"
+                      autoComplete="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -165,9 +174,9 @@ const UpdateSpots = () => {
                   <div className="mt-2">
                     <input
                       type="text"
-                      name="region"
-                      id="region"
-                      autoComplete="address-level1"
+                      name="travel_time"
+                      id="travel_time"
+                      autoComplete="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -183,9 +192,9 @@ const UpdateSpots = () => {
                   <div className="mt-2">
                     <input
                       type="text"
-                      name="postal-code"
-                      id="postal-code"
-                      autoComplete="postal-code"
+                      name="totaVisitorsPerYear"
+                      id="totaVisitorsPerYear"
+                      autoComplete="number"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -214,9 +223,9 @@ const UpdateSpots = () => {
                   <div className="mt-2">
                     <input
                       type="text"
-                      name="first-name"
-                      id="first-name"
-                      autoComplete="given-name"
+                      name="name"
+                      id="name"
+                      autoComplete="name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>

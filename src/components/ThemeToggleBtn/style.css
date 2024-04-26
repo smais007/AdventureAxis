@@ -1,0 +1,19 @@
+button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+button.transitioning {
+  animation: scaleUp 0.5s ease-in-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: rotate(90deg);
+  }
+  100% {
+    transform: rotate(-90deg);
+  }
+}
