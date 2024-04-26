@@ -4,6 +4,7 @@ import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import HomePage from "../pages/HomePage/HomePage";
 import LogInPage from "../pages/LogInPage/LogInPage";
 import SignUpPage from "../pages/SignInPage/SignInPage";
+import AddSpotsPage from "../pages/AddSpots/AddSpotsPage";
 
 export const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
       {
         path: "/log-in",
         element: <LogInPage></LogInPage>,
+      },
+      {
+        path: "/add-tourists-spot",
+        element: <AddSpotsPage></AddSpotsPage>,
       },
     ],
   },
