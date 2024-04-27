@@ -21,6 +21,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage></HomePage>,
+        loader: () => fetch('http://localhost:5000/places'),
       },
       {
         path: "/sign-up",
@@ -41,14 +42,17 @@ export const router = createBrowserRouter([
       {
         path: "/all-tourists-spot",
         element: <AllSpotsPage></AllSpotsPage>,
+        loader: () => fetch("http://localhost:5000/places"),
       },
       {
-        path: "/update-tourists-spot",
+        path: "/update-tourists-spot/:id",
         element: (
           <PrivateRoutes>
             <UpdateSpots></UpdateSpots>
           </PrivateRoutes>
         ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/places/${params.id}`),
       },
       {
         path: "/my-list",
@@ -57,6 +61,7 @@ export const router = createBrowserRouter([
             <MyList></MyList>
           </PrivateRoutes>
         ),
+        loader: () => fetch("http://localhost:5000/places"),
       },
       {
         path: "/contact",

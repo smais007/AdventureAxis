@@ -1,3 +1,4 @@
+import Card from "../../components/Card/Card";
 import NewsLetter from "../../components/NewsLetter/NewsLetter";
 import Slider from "../../components/Slider/Slider";
 import SpotsCard from "../../components/SpotsCard/SpotsCard";
@@ -7,6 +8,7 @@ const HomePage = () => {
   return (
     <div>
       <Slider></Slider>
+      <Card></Card>
       <SpotsCard></SpotsCard>
       <Testimonials></Testimonials>
       <NewsLetter></NewsLetter>

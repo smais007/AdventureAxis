@@ -1,6 +1,69 @@
-import HeaderTitle from "../../components/HeaderTitle/HeaderTitle";
+import { useLoaderData } from "react-router-dom";
+import { toast } from "sonner";
 
 const UpdateSpots = () => {
+  const place = useLoaderData();
+  const {
+    _id,
+    image,
+    tourists_spot_name,
+    country,
+    location,
+    short_description,
+    seasonality,
+    average_cost,
+    travel_time,
+    totaVisitorsPerYear,
+    name,
+    email,
+  } = place;
+
+  const handleUpdatePlace = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const image = form.image.value;
+    const tourists_spot_name = form.tourists_spot_name.value;
+    const country = form.country.value;
+    const location = form.location.value;
+    const short_description = form.short_description.value;
+    const seasonality = form.seasonality.value;
+    const average_cost = form.average_cost.value;
+    const travel_time = form.travel_time.value;
+    const totaVisitorsPerYear = form.totaVisitorsPerYear.value;
+
+    const name = form.name.value;
+    const email = form.email.value;
+
+    const updatedPlace = {
+      image,
+      tourists_spot_name,
+      country,
+      location,
+      short_description,
+      seasonality,
+      average_cost,
+      travel_time,
+      totaVisitorsPerYear,
+      name,
+      email,
+    };
+    // Sending data to localhost
+    fetch(`http://localhost:5000/places/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedPlace),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success(" Place has been updated");
+        }
+      });
+    console.log(updatedPlace);
+  };
   return (
     <>
       <div className="bg-white px-6  py-10 lg:px-8">
@@ -9,12 +72,12 @@ const UpdateSpots = () => {
             Get the help you need
           </p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Update Tourist Spots
+            Update Tourist Spots {tourists_spot_name}
           </h2>
         </div>
       </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
-        <form>
+        <form onSubmit={handleUpdatePlace}>
           <div className="space-y-12">
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
               <div>
@@ -46,6 +109,7 @@ const UpdateSpots = () => {
                         id="image"
                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                         placeholder="www.example.com"
+                        defaultValue={image}
                       />
                     </div>
                   </div>
@@ -64,6 +128,7 @@ const UpdateSpots = () => {
                       name="tourists_spot_name"
                       type="text"
                       autoComplete="text"
+                      defaultValue={tourists_spot_name}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -80,6 +145,7 @@ const UpdateSpots = () => {
                     <select
                       id="country"
                       name="country"
+                      defaultValue={country}
                       autoComplete="country-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     >
@@ -102,6 +168,7 @@ const UpdateSpots = () => {
                       id="location"
                       name="location"
                       type="text"
+                      defaultValue={location}
                       autoComplete="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -121,7 +188,7 @@ const UpdateSpots = () => {
                       name="short_description"
                       rows={3}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={""}
+                      defaultValue={short_description}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
@@ -142,6 +209,7 @@ const UpdateSpots = () => {
                       name="seasonality"
                       type="text"
                       autoComplete="text"
+                      defaultValue={seasonality}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -159,6 +227,7 @@ const UpdateSpots = () => {
                       name="average_cost"
                       id="average_cost"
                       autoComplete="text"
+                      defaultValue={average_cost}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -177,6 +246,7 @@ const UpdateSpots = () => {
                       name="travel_time"
                       id="travel_time"
                       autoComplete="text"
+                      defaultValue={travel_time}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -195,6 +265,7 @@ const UpdateSpots = () => {
                       name="totaVisitorsPerYear"
                       id="totaVisitorsPerYear"
                       autoComplete="number"
+                      defaultValue={totaVisitorsPerYear}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -226,6 +297,7 @@ const UpdateSpots = () => {
                       name="name"
                       id="name"
                       autoComplete="name"
+                      defaultValue={name}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -244,6 +316,7 @@ const UpdateSpots = () => {
                       name="email"
                       type="email"
                       autoComplete="email"
+                      defaultValue={email}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>

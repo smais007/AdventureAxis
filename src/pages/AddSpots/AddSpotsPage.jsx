@@ -1,4 +1,52 @@
+import { toast } from "sonner";
+
 const AddSpotsPage = () => {
+  const handleAddPlace = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const image = form.image.value;
+    const tourists_spot_name = form.tourists_spot_name.value;
+    const country = form.country.value;
+    const location = form.location.value;
+    const short_description = form.short_description.value;
+    const seasonality = form.seasonality.value;
+    const average_cost = form.average_cost.value;
+    const travel_time = form.travel_time.value;
+    const totaVisitorsPerYear = form.totaVisitorsPerYear.value;
+
+    const name = form.name.value;
+    const email = form.email.value;
+
+    const addPlace = {
+      image,
+      tourists_spot_name,
+      country,
+      location,
+      short_description,
+      seasonality,
+      average_cost,
+      travel_time,
+      totaVisitorsPerYear,
+      name,
+      email,
+    };
+    // Sending data to localhost
+    fetch("http://localhost:5000/places", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(addPlace),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          toast.success("New Place has been added");
+        }
+      });
+    console.log(addPlace);
+  };
   return (
     <>
       <div className="bg-white px-6  py-10 lg:px-8">
@@ -12,7 +60,7 @@ const AddSpotsPage = () => {
         </div>
       </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 ">
-        <form>
+        <form onSubmit={handleAddPlace}>
           <div className="space-y-12">
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 md:grid-cols-3">
               <div>
@@ -258,10 +306,11 @@ const AddSpotsPage = () => {
               Cancel
             </button>
             <button
+              // onSubmit={handleAddPlace}
               type="submit"
               className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Save
+              Add Place
             </button>
           </div>
         </form>
