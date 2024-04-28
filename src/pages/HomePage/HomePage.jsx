@@ -1,16 +1,18 @@
 import Card from "../../components/Card/Card";
+import CountryCard from "../../components/CountryCard/CountryCard";
 import NewsLetter from "../../components/NewsLetter/NewsLetter";
-import Slider from "../../components/Slider/Slider";
+// import Slider from "../../components/Slider/Slider";
 import SpotsCard from "../../components/SpotsCard/SpotsCard";
 import Testimonials from "../../components/Testimonials/Testimonials";
 
 const HomePage = () => {
   return (
     <div>
-      <Slider></Slider>
+      {/* <Slider></Slider> */}
       <Card></Card>
       <SpotsCard></SpotsCard>
       <Testimonials></Testimonials>
+      <CountryCard></CountryCard>
       <NewsLetter></NewsLetter>
     </div>
   );

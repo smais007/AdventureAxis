@@ -1,41 +1,7 @@
 import { StarIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {  useParams } from "react-router-dom";
 
-const product = {
-  name: "Basic Tee 6-Pack",
-  price: "$192",
-  href: "#",
-
-  images: [
-    {
-      src: "https://i.ibb.co/jrRb11q/img2.jpg",
-      alt: "Two each of gray, white, and black shirts laying flat.",
-    },
-    {
-      src: "https://i.ibb.co/NSwVv8D/img3.jpg",
-      alt: "Model wearing plain black basic tee.",
-    },
-    {
-      src: "https://i.ibb.co/NSwVv8D/img3.jpg",
-      alt: "Model wearing plain gray basic tee.",
-    },
-    {
-      src: "https://i.ibb.co/NSwVv8D/img3.jpg",
-      alt: "Model wearing plain white basic tee.",
-    },
-  ],
-
-  description:
-    'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-  highlights: [
-    "Hand cut and sewn locally",
-    "Dyed with our proprietary colors",
-    "Pre-washed & pre-shrunk",
-    "Ultra-soft 100% cotton",
-  ],
-  details:
-    'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-};
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
 function classNames(...classes) {
@@ -43,18 +9,51 @@ function classNames(...classes) {
 }
 
 export default function Details() {
-  const [quantity, setQuantity] = useState(1);
+  // const  = useLoaderData();
+  // console.log();
 
-  const handleQuantityChange = (event) => {
-    setQuantity(parseInt(event.target.value)); // Parse input value to integer
-  };
-  const totalPrice = (parseInt(product.price.slice(1)) * quantity).toFixed(2);
+
+
+
+  const { id } = useParams();
+  // console.log(id);
+  const [place, setPlace] = useState({});
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/details/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPlace(data);
+        console.log(typeof data);
+      })
+      .catch((error) => {
+        console.error("Error fetching place:", error);
+        // Handle error (e.g., display an error message)
+      });
+  }, [id]);
+
+
+  // const [quantity, setQuantity] = useState(1);
+  // const handleQuantityChange = (event) => {
+  //   setQuantity(parseInt(event.target.value)); // Parse input value to integer
+  // };
+
+  // const totalPrice = (
+  //   parseInt(.average _cost.slice(1)) * quantity
+  // ).toFixed(2);
+
+  console.log(id);
+
 
   return (
-    <div className="bg-white">
+    <div>
+      <h1> hello {place.tourists_spot_name}</h1>
+      <div className="bg-white">
+  {place ? (
+    <>
       <div className="pt-6">
         {/* Image gallery */}
-        <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+        {/* <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
             <img
               src={product.images[0].src}
@@ -85,13 +84,17 @@ export default function Details() {
               className="h-full w-full object-cover object-center"
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Product info */}
+        {/* {place.tourists_spot_name}
+        <p>{place._id}</p>
+        {place.length} */}
+
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-              {product.name}
+              {place.tourists_spot_name}
             </h1>
           </div>
 
@@ -102,7 +105,7 @@ export default function Details() {
               <span className="text-base font-medium text-gray-500">
                 Total {""}:{" "}
               </span>{" "}
-              {totalPrice}
+              {/* {totalPrice} */}
             </p>
 
             {/* Reviews */}
@@ -139,19 +142,19 @@ export default function Details() {
                 <h3 className="text-base font-medium text-gray-900">
                   Seasonality :{" "}
                   <span className="text-base font-medium text-gray-500">
-                    Summer
+                    {place.seasonality}
                   </span>
                 </h3>
                 <h3 className="text-base font-medium text-gray-900">
                   Travel Time :{" "}
                   <span className="text-base font-medium text-gray-500">
-                    5 days
+                    {place.travel_time}
                   </span>
                 </h3>
                 <h3 className="text-base font-medium text-gray-900">
                   Avarage Cost :{" "}
                   <span className="text-base font-medium text-gray-500">
-                    $450
+                    {place.average_cost}
                   </span>
                 </h3>
               </div>
@@ -168,8 +171,8 @@ export default function Details() {
                       type="number"
                       min="1" // Set minimum value to 1
                       className="w-20 h-10 px-3 text-center border rounded-md"
-                      value={quantity}
-                      onChange={handleQuantityChange}
+                      // value={quantity}
+                      // onChange={handleQuantityChange}
                     />
                   </div>
                 </div>
@@ -179,7 +182,7 @@ export default function Details() {
                 type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                Add to bag
+                Book ticket
               </button>
             </form>
           </div>
@@ -190,20 +193,27 @@ export default function Details() {
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
+                <p className="text-base text-gray-900">
+                  {place.short_description}
+                </p>
               </div>
             </div>
 
             <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
+              <h3 className="text-sm font-medium text-gray-900">
+                Highlights
+              </h3>
 
               <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight) => (
+                <ul
+                  role="list"
+                  className="list-disc space-y-2 pl-4 text-sm"
+                >
+                  {/* {product.highlights.map((highlight) => (
                     <li key={highlight} className="text-gray-400">
                       <span className="text-gray-600">{highlight}</span>
                     </li>
-                  ))}
+                  ))} */}
                 </ul>
               </div>
             </div>
@@ -212,12 +222,17 @@ export default function Details() {
               <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
               <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">{product.details}</p>
+                <p className="text-sm text-gray-600">{place.details}</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </>
+  ) : (
+    <p>Loading</p>
+  )}
+</div>
     </div>
   );
 }

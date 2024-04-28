@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage></HomePage>,
-        loader: () => fetch('http://localhost:5000/places'),
+        loader: () => fetch("http://localhost:5000/places"),
       },
       {
         path: "/sign-up",
@@ -68,8 +68,14 @@ export const router = createBrowserRouter([
         element: <Contact></Contact>,
       },
       {
-        path: "/details",
-        element: <Details></Details>,
+        path: "/details/:id",
+        element: (
+          <PrivateRoutes>
+            <Details></Details>
+          </PrivateRoutes>
+        ),
+        // loader: ({ params }) =>
+        //   fetch(`http://localhost:5000/singelPlace/${params.id}`),
       },
     ],
   },

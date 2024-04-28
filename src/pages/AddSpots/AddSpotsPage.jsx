@@ -1,6 +1,13 @@
+import { useState } from "react";
 import { toast } from "sonner";
 
 const AddSpotsPage = () => {
+  const [region, setRegion] = useState("");
+
+  // Function to handle region selection
+  const handleRegionChange = (event) => {
+    setRegion(event.target.value);
+  };
   const handleAddPlace = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -13,6 +20,8 @@ const AddSpotsPage = () => {
     const average_cost = form.average_cost.value;
     const travel_time = form.travel_time.value;
     const totaVisitorsPerYear = form.totaVisitorsPerYear.value;
+    const region = form.region.value;
+
 
     const name = form.name.value;
     const email = form.email.value;
@@ -21,6 +30,7 @@ const AddSpotsPage = () => {
       image,
       tourists_spot_name,
       country,
+      region,
       location,
       short_description,
       seasonality,
@@ -120,6 +130,32 @@ const AddSpotsPage = () => {
                     htmlFor="country"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
+                    Region
+                  </label>
+                  <div className="mt-2">
+                    <select
+                      id="region"
+                      name="region"
+                      autoComplete="region-name"
+                      onChange={handleRegionChange}
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    >
+                      <option value="">Select Region</option>
+                      <option value="Southeast Asia">Southeast Asia</option>
+                      <option value="Europe">Europe</option>
+                      <option value="America">America</option>
+                      <option value="Africa">Africa</option>
+                      <option value="Middle East">Middle East</option>
+                      <option value="Central Asia">Central Asia</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="sm:col-span-3">
+                  <label
+                    htmlFor="country"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
                     Country
                   </label>
                   <div className="mt-2">
@@ -129,9 +165,67 @@ const AddSpotsPage = () => {
                       autoComplete="country-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     >
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
+                      {region === "Southeast Asia" ? (
+                        <>
+                          <option value="Bangladesh">Bangladesh</option>
+                          <option value="Thailand">Thailand</option>
+                          <option value="Vietnam">Vietnam</option>
+                          <option value="Indonesia">Indonesia</option>
+                          <option value="Cambodia">Cambodia</option>
+                          <option value="Malaysia">Malaysia</option>
+                        </>
+                      ) : region === "Europe" ? (
+                        <>
+                          <option value="Germany">Germany</option>
+                          <option value="France">France</option>
+                          <option value="Italy">Italy</option>
+                          <option value="Spain">Spain</option>
+                          <option value="England">England</option>
+                          <option value="Switzerland">Switzerland</option>
+                        </>
+                      ) : region === "America" ? (
+                        <>
+                          <option value="United States of America ">
+                            United States of America
+                          </option>
+                          <option value="Canada">Canada</option>
+                          <option value="Brazil">Brazil</option>
+                          <option value="Argentina">Argentina</option>
+                          <option value="Mexico">Mexico</option>
+                          <option value="Peru">Peru</option>
+                        </>
+                      ) : region === "Africa" ? (
+                        <>
+                          <option value="Nigeria">Nigeria</option>
+                          <option value="South Africa">South Africa</option>
+                          <option value="Tanzania">Tanzania</option>
+                          <option value="Kenya">Kenya</option>
+                          <option value="Morocco">Morocco</option>
+                          <option value="Egypt">Egypt</option>
+                        </>
+                      ) : region === "Middle East" ? (
+                        <>
+                          <option value="Saudi Arabia">Saudi Arabia</option>
+                          <option value="United Arab Emirates">
+                            United Arab Emirates
+                          </option>
+                          <option value="Jordan">Jordan</option>
+                          <option value="Iran">Iran</option>
+                          <option value="Qatar">Qatar</option>
+                          <option value="Kuwait">Kuwait</option>
+                        </>
+                      ) : region === "Central Asia" ? (
+                        <>
+                          <option value="Kazakhstan">Kazakhstan</option>
+                          <option value="Uzbekistan">Uzbekistan</option>
+                          <option value="Turkmenistan">Turkmenistan</option>
+                          <option value="Kyrgyzstan">Kyrgyzstan</option>
+                          <option value="Mongolia">Mongolia</option>
+                          <option value="Kyrgyzstan">Kyrgyzstan</option>
+                        </>
+                      ) : (
+                        <option>Please select a region first</option>
+                      )}
                     </select>
                   </div>
                 </div>

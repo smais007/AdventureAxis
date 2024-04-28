@@ -1,7 +1,10 @@
-import { useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLoaderData, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const UpdateSpots = () => {
+  const { id } = useParams();
+  const [loadedPlace, setLoadedPlace] = useState({});
   const place = useLoaderData();
   const {
     _id,
@@ -17,6 +20,19 @@ const UpdateSpots = () => {
     name,
     email,
   } = place;
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/details/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setLoadedPlace(data);
+        console.log(typeof data);
+      })
+      .catch((error) => {
+        console.error("Error fetching place:", error);
+        // Handle error (e.g., display an error message)
+      });
+  }, [id]);
 
   const handleUpdatePlace = (e) => {
     e.preventDefault();
@@ -48,7 +64,7 @@ const UpdateSpots = () => {
       email,
     };
     // Sending data to localhost
-    fetch(`http://localhost:5000/places/${_id}`, {
+    fetch(`http://localhost:5000/updatePlace/${_id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -72,7 +88,7 @@ const UpdateSpots = () => {
             Get the help you need
           </p>
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Update Tourist Spots {tourists_spot_name}
+            Update Tourist Spots {loadedPlace.tourists_spot_name}
           </h2>
         </div>
       </div>
@@ -128,7 +144,7 @@ const UpdateSpots = () => {
                       name="tourists_spot_name"
                       type="text"
                       autoComplete="text"
-                      defaultValue={tourists_spot_name}
+                      defaultValue={loadedPlace.tourists_spot_name}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -145,7 +161,7 @@ const UpdateSpots = () => {
                     <select
                       id="country"
                       name="country"
-                      defaultValue={country}
+                      defaultValue={loadedPlace.country}
                       autoComplete="country-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                     >
@@ -168,7 +184,7 @@ const UpdateSpots = () => {
                       id="location"
                       name="location"
                       type="text"
-                      defaultValue={location}
+                      defaultValue={loadedPlace.location}
                       autoComplete="text"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -188,7 +204,7 @@ const UpdateSpots = () => {
                       name="short_description"
                       rows={3}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={short_description}
+                      defaultValue={loadedPlace.short_description}
                     />
                   </div>
                   <p className="mt-3 text-sm leading-6 text-gray-600">
@@ -209,7 +225,7 @@ const UpdateSpots = () => {
                       name="seasonality"
                       type="text"
                       autoComplete="text"
-                      defaultValue={seasonality}
+                      defaultValue={loadedPlace.seasonality}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -227,7 +243,7 @@ const UpdateSpots = () => {
                       name="average_cost"
                       id="average_cost"
                       autoComplete="text"
-                      defaultValue={average_cost}
+                      defaultValue={loadedPlace.average_cost}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -246,7 +262,7 @@ const UpdateSpots = () => {
                       name="travel_time"
                       id="travel_time"
                       autoComplete="text"
-                      defaultValue={travel_time}
+                      defaultValue={loadedPlace.travel_time}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -265,7 +281,7 @@ const UpdateSpots = () => {
                       name="totaVisitorsPerYear"
                       id="totaVisitorsPerYear"
                       autoComplete="number"
-                      defaultValue={totaVisitorsPerYear}
+                      defaultValue={loadedPlace.totaVisitorsPerYear}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -297,7 +313,7 @@ const UpdateSpots = () => {
                       name="name"
                       id="name"
                       autoComplete="name"
-                      defaultValue={name}
+                      defaultValue={loadedPlace.name}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -316,7 +332,7 @@ const UpdateSpots = () => {
                       name="email"
                       type="email"
                       autoComplete="email"
-                      defaultValue={email}
+                      defaultValue={loadedPlace.email}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>

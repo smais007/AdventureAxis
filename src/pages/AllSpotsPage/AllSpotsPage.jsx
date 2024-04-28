@@ -1,8 +1,32 @@
+import { useState } from "react";
 import { CiClock1, CiLocationArrow1 } from "react-icons/ci";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 export default function AllSpotsPage() {
   const places = useLoaderData();
+  const [sortOrder, setSortOrder] = useState("asc");
+
+  const parseCost = (cost) => {
+    if (cost === "Free" || cost === "free") {
+      return 0;
+    } else {
+      return parseFloat(cost.replace(/[^0-9.-]+/g, ""));
+    }
+  };
+
+  const handleSort = () => {
+    if (sortOrder === "asc") {
+      places.sort(
+        (a, b) => parseCost(a.average_cost) - parseCost(b.average_cost)
+      );
+      setSortOrder("desc");
+    } else {
+      places.sort(
+        (a, b) => parseCost(b.average_cost) - parseCost(a.average_cost)
+      );
+      setSortOrder("asc");
+    }
+  };
 
   return (
     <div className="bg-white">
@@ -10,6 +34,18 @@ export default function AllSpotsPage() {
         <h2 className="text-xl font-bold text-gray-900">
           Customers also bought {places.length}
         </h2>
+
+        {/* Sort dropdown */}
+        <div className="flex justify-end mb-4">
+          <select
+            className="px-4 py-2 border border-gray-300 rounded-md"
+            onChange={handleSort}
+            value={sortOrder}
+          >
+            <option value="asc">Sort by Cost (Low to High)</option>
+            <option value="desc">Sort by Cost (High to Low)</option>
+          </select>
+        </div>
 
         <div className="mt-8 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
           {places.map((place) => (
@@ -48,12 +84,14 @@ export default function AllSpotsPage() {
                 </div>
               </div>
               <div className="mt-6">
-                <a
-                  href={place.href}
-                  className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200"
-                >
-                  View Details<span className="sr-only">, {place.tourists_spot_name}</span>
-                </a>
+                <Link to={`/details/${place._id}`}>
+                  <button className="relative flex items-center justify-center rounded-md border border-transparent bg-gray-100 px-8 py-2 text-sm font-medium text-gray-900 hover:bg-gray-200">
+                    View Details
+                    <span className="sr-only">
+                      , {place.tourists_spot_name}
+                    </span>
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
