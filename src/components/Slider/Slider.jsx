@@ -4,8 +4,8 @@ import "./style.css";
 const slides = [
   {
     id: 1,
-    title: "Switzerland",
-    subtitle: "Explore the beauty of Switzerland",
+    title: "Bangladesh",
+    subtitle: "Explore the beauty of Switzerland ",
     button: "Explore",
     imageUrl: "https://i.ibb.co/qCkd9jS/img1.jpg",
   },
@@ -64,7 +64,6 @@ const Slider = () => {
     nextButton.addEventListener("click", handleNextClick);
     prevButton.addEventListener("click", handlePrevClick);
 
-
     return () => {
       nextButton.removeEventListener("click", handleNextClick);
       prevButton.removeEventListener("click", handlePrevClick);
@@ -79,7 +78,7 @@ const Slider = () => {
           {slides.map((slide) => (
             <div
               key={slide.id}
-              className="item"
+              className="item bg-gradient-to-r from-stone-900 to-slate-50"
               style={{ backgroundImage: `url(${slide.imageUrl})` }}
             >
               <div className="content">

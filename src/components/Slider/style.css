@@ -52,13 +52,19 @@
   opacity: 0;
 }
 
+.item {
+  background: #334155;
+  border-radius: 2rem;
+}
 .item .content {
   position: absolute;
+
+  padding: 20px;
   top: 50%;
   left: 100px;
   width: 300px;
   text-align: left;
-  color: #eee;
+  color: #fff;
   transform: translate(0, -50%);
   font-family: system-ui;
   display: none;
