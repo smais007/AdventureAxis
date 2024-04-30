@@ -5,6 +5,7 @@ import { AuthContext } from "../../Context/AuthProvider";
 import { useLocation } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import UserAvarter from "../UserAvarter/UserAvarter";
+import { toast } from "sonner";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -16,8 +17,17 @@ const navigation = [
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const location = useLocation();
+
+  const handleSignOut = () => {
+    logOut()
+      .then((result) => {
+        console.log(result);
+        toast.success("Logout Successfully");
+      })
+      .catch();
+  };
 
   return (
     <header className="bg-white">
@@ -35,7 +45,7 @@ export default function Navbar() {
             />
           </a>
           <div>
-            <h1 className="font-bold text-gray-900 text-2xl">
+            <h1 className="font-bold text-gray-900 text-2xl hidden md:block">
               <a href="/">Adventure Axies</a>
             </h1>
           </div>
@@ -87,21 +97,19 @@ export default function Navbar() {
 
         <div className="flex flex-1 items-center justify-end gap-x-6">
           {user ? (
-            <>
-              <div className="flex items-center gap-4">
-                <a
-                  data-tooltip-id="my-tooltip"
-                  data-tooltip-content={user.displayName}
-                >
-                  <UserAvarter></UserAvarter>
-                </a>
-                <Tooltip id="my-tooltip" />
-              </div>
-            </>
+            <div className="flex items-center gap-4">
+              <a
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content={user.displayName}
+              >
+                <UserAvarter></UserAvarter>
+              </a>
+              <Tooltip id="my-tooltip" />
+            </div>
           ) : (
             <>
               <a
-                href="/log-in"
+                href="/login"
                 className="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900"
               >
                 Log in
@@ -140,16 +148,34 @@ export default function Navbar() {
               <span className="sr-only">Your Company</span>
               <img
                 className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                src="https://i.ibb.co/r3qbjTX/logo.png"
                 alt=""
               />
             </a>
-            <a
-              href="#"
-              className="ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Sign up
-            </a>
+            {user ? (
+              <button
+                href="#"
+                onClick={handleSignOut}
+                className="ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Sign out
+              </button>
+            ) : (
+              <>
+                <a
+                  href="/login"
+                  className="ml-auto rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Log in
+                </a>
+                <a
+                  href="/sign-up"
+                  className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Sign up
+                </a>
+              </>
+            )}
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -172,14 +198,22 @@ export default function Navbar() {
                   </a>
                 ))}
               </div>
-              <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
-              </div>
+              {!user && (
+                <div className="py-6">
+                  <a
+                    href="/login"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Log in
+                  </a>
+                  <a
+                    href="/sign-up"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Sign up
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </Dialog.Panel>
