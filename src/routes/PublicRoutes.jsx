@@ -11,6 +11,7 @@ import UpdateSpots from "../pages/UpdateSpots/UpdateSpots";
 import Contact from "../pages/Contact/Contact";
 import Details from "../pages/Details/Details";
 import PrivateRoutes from "./PrivateRoutes";
+import CountyCardPage from "../pages/CountryCardPage/CountryCardPage";
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage></HomePage>,
-        loader: () => fetch("http://localhost:5000/places"),
+        loader: () => fetch("https://adventure-axis-server.vercel.app/places"),
       },
       {
         path: "/sign-up",
@@ -42,8 +43,50 @@ export const router = createBrowserRouter([
       {
         path: "/all-tourists-spot",
         element: <AllSpotsPage></AllSpotsPage>,
-        loader: () => fetch("http://localhost:5000/places"),
+        loader: () => fetch("https://adventure-axis-server.vercel.app/places"),
       },
+
+      {
+        path: "/country",
+        element: <CountyCardPage></CountyCardPage>,
+        loader: async ({ request }) => {
+          const url = new URL(request.url);
+
+          const country = new URLSearchParams(url.search).get("country");
+
+          const response = await fetch(
+            `https://adventure-axis-server.vercel.app/places?country=${country}`
+          );
+          const data = await response.json();
+
+          // Filter the data based on the country
+
+          return data;
+        },
+      },
+
+      // {
+      //   path: "/country/id",
+      //   element: <CountyCardPage></CountyCardPage>,
+      //   loader: async () => {
+      //     const response = await fetch("https://adventure-axis-server.vercel.app/places");
+      //     const data = await response.json();
+
+      //     // Filter the data based on the country
+      //     const filteredData = data.filter(
+      //       (place) => place.country === "Indonesia"
+      //     );
+
+      //     return filteredData;
+      //   },
+      // },
+
+      // {
+      //   path: "/country/id",
+      //   element: <CountyCardPage></CountyCardPage>,
+      //   loader: () => fetch("https://adventure-axis-server.vercel.app/places"),
+      // },
+
       {
         path: "/update-tourists-spot/:id",
         element: (
@@ -51,8 +94,12 @@ export const router = createBrowserRouter([
             <UpdateSpots></UpdateSpots>
           </PrivateRoutes>
         ),
-        loader: ({ params }) =>
-          fetch(`http://localhost:5000/places/${params.id}`),
+        loader: ({ params }) => {
+          console.log(params, "from rou");
+          return fetch(
+            `https://adventure-axis-server.vercel.app/places/${params.id}`
+          );
+        },
       },
       {
         path: "/my-list",
@@ -61,7 +108,7 @@ export const router = createBrowserRouter([
             <MyList></MyList>
           </PrivateRoutes>
         ),
-        loader: () => fetch("http://localhost:5000/places"),
+        loader: () => fetch("https://adventure-axis-server.vercel.app/places"),
       },
       {
         path: "/contact",
@@ -75,7 +122,7 @@ export const router = createBrowserRouter([
           </PrivateRoutes>
         ),
         // loader: ({ params }) =>
-        //   fetch(`http://localhost:5000/singelPlace/${params.id}`),
+        //   fetch(`https://adventure-axis-server.vercel.app/singelPlace/${params.id}`),
       },
     ],
   },

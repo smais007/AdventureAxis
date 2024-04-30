@@ -4,25 +4,13 @@ import { toast } from "sonner";
 
 const UpdateSpots = () => {
   const { id } = useParams();
+  console.log(`ID from update pade ${id}`);
   const [loadedPlace, setLoadedPlace] = useState({});
   const place = useLoaderData();
-  const {
-    _id,
-    image,
-    tourists_spot_name,
-    country,
-    location,
-    short_description,
-    seasonality,
-    average_cost,
-    travel_time,
-    totaVisitorsPerYear,
-    name,
-    email,
-  } = place;
+  const { image } = place;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/details/${id}`)
+    fetch(`https://adventure-axis-server.vercel.app/details/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setLoadedPlace(data);
@@ -64,7 +52,7 @@ const UpdateSpots = () => {
       email,
     };
     // Sending data to localhost
-    fetch(`http://localhost:5000/updatePlace/${_id}`, {
+    fetch(`https://adventure-axis-server.vercel.app/updatePlace/${id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -332,8 +320,9 @@ const UpdateSpots = () => {
                       name="email"
                       type="email"
                       autoComplete="email"
+                      disabled
                       defaultValue={loadedPlace.email}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
                 </div>

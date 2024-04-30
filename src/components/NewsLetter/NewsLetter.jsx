@@ -58,8 +58,7 @@ export default function NewsLetter() {
               </div>
               <dt className="mt-4 font-semibold text-white">Weekly articles</dt>
               <dd className="mt-2 leading-7 text-gray-400">
-                Non laboris consequat cupidatat laborum magna. Eiusmod non irure
-                cupidatat duis commodo amet.
+              Explore the world with our weekly articles - no spam, just inspiration
               </dd>
             </div>
             <div className="flex flex-col items-start">
@@ -71,8 +70,7 @@ export default function NewsLetter() {
               </div>
               <dt className="mt-4 font-semibold text-white">No spam</dt>
               <dd className="mt-2 leading-7 text-gray-400">
-                Officia excepteur ullamco ut sint duis proident non adipisicing.
-                Voluptate incididunt anim.
+              Explore the world with our weekly articles - no spam, just inspiration
               </dd>
             </div>
           </dl>

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { CiClock1, CiLocationArrow1 } from "react-icons/ci";
 import { Link, useLoaderData } from "react-router-dom";
 
-export default function AllSpotsPage() {
+export default function CountyCardPage() {
   const places = useLoaderData();
   const [sortOrder, setSortOrder] = useState("asc");
 
@@ -28,24 +28,16 @@ export default function AllSpotsPage() {
     }
   };
 
+
+
+
+
   return (
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div>
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-base font-semibold leading-7 text-indigo-600">
-              Cherished your memories
-            </p>
-            <h2 className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Explore World
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Are you ready to embark on a journey of discovery, adventure, and
-              cultural immersion? Welcome to Explore World, your gateway to
-              unforgettable travel experiences across the globe.
-            </p>
-          </div>
-        </div>
+        <h2 className="text-xl font-bold text-gray-900">
+          Customers also bought {places.length}
+        </h2>
 
         {/* Sort dropdown */}
         <div className="flex justify-end mb-4">
@@ -54,8 +46,8 @@ export default function AllSpotsPage() {
             onChange={handleSort}
             value={sortOrder}
           >
-            <option value="asc">Sort by Cost (High to Low)</option>
-            <option value="desc">Sort by Cost ( Low to High)</option>
+            <option value="asc">Sort by Cost (Low to High)</option>
+            <option value="desc">Sort by Cost (High to Low)</option>
           </select>
         </div>
 

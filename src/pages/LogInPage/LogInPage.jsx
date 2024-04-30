@@ -9,10 +9,6 @@ export default function LogInPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    document.title = "Paradice Cave | Login";
-  }, []);
-
   const handeLogin = (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -37,7 +33,7 @@ export default function LogInPage() {
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
             className="mx-auto h-10  w-auto"
-            src="https://i.ibb.co/6Rw3qLp/Discover-Your-Paradise.png"
+            src="https://i.ibb.co/r3qbjTX/logo.png"
             alt="Your Company"
           />
 

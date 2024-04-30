@@ -22,7 +22,6 @@ const AddSpotsPage = () => {
     const totaVisitorsPerYear = form.totaVisitorsPerYear.value;
     const region = form.region.value;
 
-
     const name = form.name.value;
     const email = form.email.value;
 
@@ -41,7 +40,7 @@ const AddSpotsPage = () => {
       email,
     };
     // Sending data to localhost
-    fetch("http://localhost:5000/places", {
+    fetch("https://adventure-axis-server.vercel.app/places", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -232,7 +231,7 @@ const AddSpotsPage = () => {
 
                 <div className="sm:col-span-4">
                   <label
-                    htmlFor="email"
+                    htmlFor="location"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Location
@@ -271,7 +270,7 @@ const AddSpotsPage = () => {
 
                 <div className="sm:col-span-4">
                   <label
-                    htmlFor="email"
+                    htmlFor="session"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Seasonality
@@ -288,7 +287,7 @@ const AddSpotsPage = () => {
                 </div>
                 <div className="sm:col-span-2 sm:col-start-1">
                   <label
-                    htmlFor="city"
+                    htmlFor="cost"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
                     Average Cost
