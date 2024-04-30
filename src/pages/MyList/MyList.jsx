@@ -12,7 +12,7 @@ export default function MyList() {
       {/* {places.map((place) => (
         <MyListCard key={place._id} place={place}></MyListCard>
       ))} */}
-      {/* <LocationAnimation></LocationAnimation> */}
+      
 
       <MyListCard></MyListCard>
     </>

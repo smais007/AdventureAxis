@@ -4,13 +4,15 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import Swal from "sweetalert2";
+import Lottie from "lottie-react";
+import LocatinAnimation from "../../../public/Location.json";
 
 export default function MyListCard() {
   const [places, setPlaces] = useState(useLoaderData());
   // const places = useLoaderData();
   const { user } = useContext(AuthContext);
   const [currentUserEmail, setCurrentUserEmail] = useState(null);
-
+  console.log(currentUserEmail);
   useEffect(() => {
     setCurrentUserEmail(user.email);
   }, [user.email]);
@@ -46,8 +48,15 @@ export default function MyListCard() {
     });
   };
 
+  const style = {
+    width: "300px",
+  };
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=" flex justify-center">
+        <Lottie style={style} animationData={LocatinAnimation} loop={true} />;
+        <p></p>
+      </div>
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto pt-20">
           <h1 className="text-base font-semibold leading-6 text-gray-900">
@@ -58,6 +67,7 @@ export default function MyListCard() {
             etc.
           </p>
         </div>
+
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
           <a href="/add-tourists-spot">
             <button
@@ -69,6 +79,7 @@ export default function MyListCard() {
           </a>
         </div>
       </div>
+
       <div className="-mx-4 mt-8 sm:-mx-0">
         <table className="min-w-full divide-y divide-gray-300">
           <thead>
